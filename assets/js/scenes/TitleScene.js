@@ -1,33 +1,19 @@
-class TitleScene extends Phaser.Scene{
-    constructor(){
-        super('Title');
+class TitleScene extends Phaser.Scene {
+    constructor() {
+      super('Title');
     }
-    
-    create(){
-        //create title text
-        this.titleText = this.add.text(this.scale.width / 2, this.scale.height / 2, 'Zenva MMORPG', { fontSize: '64px', fill: '#fff' });
-        this.titleText.setOrigin(0.5);
-
-        //center button below title.
-        this.button = this.add.image(this.scale.width / 2 , this.scale.height * 0.65 , 'button1');
-        this.button.setInteractive();
-
-        this.buttonText = this.add.text(0, 0, 'Start', { fontSize:'26px', fill: '#fff' });
-        Phaser.Display.Align.In.Center(this.buttonText, this.button);
-
-        this.button.on('pointerdown', () => {
-            console.log('pointer down');
-            this.scene.start('Game');
-        });
-
-        this.button.on('pointerover', () => {
-            console.log('pointer over');
-            this.button.setTexture('button2');
-        });
-
-        this.button.on('pointerout', () => {
-            console.log('pointer out');
-            this.button.setTexture('button1');
-        });
+  
+    create() {
+      // create title text
+      this.titleText = this.add.text(this.scale.width / 2, this.scale.height / 2, 'Zenva MMORPG', { fontSize: '64px', fill: '#fff' });
+      this.titleText.setOrigin(0.5);
+  
+      // create the Play game button
+      this.startGameButton = new UiButton(this, this.scale.width / 2, this.scale.height * 0.65, 'button1', 'button2', 'Start', this.startScene.bind(this, 'Game')); // NEW
     }
-}
+  
+    // NEW function:
+    startScene(targetScene) { 
+      this.scene.start(targetScene);
+    }
+  }
